@@ -1,38 +1,81 @@
-.App {
-  text-align: center;
+.app {
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  height: 100vh;
+}
+#quote-box {
+  background: #fff;
+  padding: 2em;
+  width: 500px;
+  border-radius: 3px;
 }
 
-.App-link {
-  color: #61dafb;
+#text {
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#text::before {
+  position: absolute;
+  top: -20px;
+  left: -30px;
+  content: '"';
+  font-size: 5em;
+}
+
+#author {
+  text-align: right;
+}
+
+.theme0 {
+  background: #16a085;
+  color: #16a085;
+}
+.theme1 {
+  background: #27ae60;
+  color: #27ae60;
+}
+.theme2 {
+  background: #2c3e50;
+  color: #2c3e50;
+}
+.theme3 {
+  background: #f39c12;
+  color: #f39c12;
+}
+.theme4 {
+  background: #e74c3c;
+  color: #e74c3c;
+}
+.theme5 {
+  background: #9b59b6;
+  color: #9b59b6;
+}
+.theme6 {
+  background: #fb6964;
+  color: #fb6964;
+}
+.theme7 {
+  background: #342224;
+  color: #342224;
+}
+.theme8 {
+  background: #472e32;
+  color: #472e32;
+}
+.theme9 {
+  background: #bdbb99;
+  color: #bdbb99;
+}
+.theme10 {
+  background: #77b1a9;
+  color: #77b1a9;
+}
+.theme11 {
+  background: #73a857;
+  color: #73a857;
 }
