@@ -1,8 +1,61 @@
 import React, { useState, useEffect } from 'react';
+import styled, { ThemeProvider } from 'styled-components';
+import { Transition } from 'react-transition-group';
 import axios from 'axios';
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: 1s;
+  background-color: ${(props) => props.theme.main};
+`;
+
+const Button = styled.button`
+  cursor: pointer;
+  display: inline-block;
+  border: none;
+  width: 10em;
+  height: auto;
+  outline: none;
+  transition: 1s;
+  background: ${(props) => props.theme.main};
+  color: #fff;
+`;
+
+const Icon = styled.a`
+  transition: 1s;
+  color: ${(props) => props.theme.main};
+  display: inline-block;
+  font-size: 3em;
+`;
+
+const colors = [
+  '#16a085',
+  '#27ae60',
+  '#2c3e50',
+  '#f39c12',
+  '#e74c3c',
+  '#9b59b6',
+  '#fb6964',
+  '#342224',
+  '#472e32',
+  '#bdbb99',
+  '#77b1a9',
+  '#73a857',
+];
+
+const getRandomNumber = (max, min = 0) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
 function QuoteMachine() {
-  const [theme, setTheme] = useState('theme1');
+  const [color, setColor] = useState(colors[getRandomNumber(colors.length, 0)]);
+  const [theme, setTheme] = useState({
+    main: color,
+    color: 'black',
+  });
   const [randomQuote, setRandomQuote] = useState('');
   const [trigger, setTrigger] = useState(false);
   const [cache, setCache] = useState([]);
@@ -28,41 +81,39 @@ function QuoteMachine() {
 
   const getNewQuote = () => {
     setTrigger(true);
-    switchTheme();
-  };
-
-  const getRandomNumber = (max, min = 0) => {
-    return Math.floor(Math.random() * (max - min) + min);
-  };
-
-  const switchTheme = () => {
-    const themeCount = 12;
-    const randomTheme = `theme${getRandomNumber(themeCount)}`;
-    setTheme(randomTheme);
+    setColor(colors[getRandomNumber(colors.length, 0)]);
+    setTheme({
+      ...theme,
+      main: color,
+    });
   };
 
   const { quote, author } = randomQuote;
   return (
-    <div id="wrapper" className={theme}>
-      <div id="quote-box">
-        <blockquote>
-          <p id="text">{quote}</p>
-          <p id="author">- {author}</p>
-        </blockquote>
-        <div className="buttons">
-          <a href="twitter.com/intent/tweet" id="tweet-quote">
-            <i className="icon fab fa-twitter-square"></i>
-          </a>
-          <button
-            onClick={() => getNewQuote()}
-            id="new-quote"
-            className="btn btn-primary"
-          >
-            New Quote
-          </button>
-        </div>
-      </div>
-    </div>
+    <Transition in={theme} timeout={1000}>
+      <ThemeProvider theme={theme}>
+        <Wrapper>
+          <div id="quote-box">
+            <blockquote>
+              <p id="text">{quote}</p>
+              <p id="author">- {author}</p>
+            </blockquote>
+            <div className="buttons">
+              <a href="twitter.com/intent/tweet" id="tweet-quote">
+                <Icon className="icon fab fa-twitter-square"></Icon>
+              </a>
+              <Button
+                onClick={() => getNewQuote()}
+                id="new-quote"
+                // className="btn btn-primary"
+              >
+                New Quote
+              </Button>
+            </div>
+          </div>
+        </Wrapper>
+      </ThemeProvider>
+    </Transition>
   );
 }
 
