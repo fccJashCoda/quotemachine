@@ -124,7 +124,7 @@ function QuoteMachine() {
             </blockquote>
             <ButtonBlock>
               <a href="twitter.com/intent/tweet" id="tweet-quote">
-                <Icon className="icon fab fa-twitter-square"></Icon>
+                <Icon as="i" className="fab fa-twitter-square"></Icon>
               </a>
               <Button
                 onClick={() => getNewQuote()}
