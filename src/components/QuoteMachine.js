@@ -72,6 +72,20 @@ const colors = [
   '#73a857',
 ];
 
+const duration = 300;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-in-out`,
+  opacity: 1,
+};
+
+const transitionStyles = {
+  entering: { opacity: 0.5 },
+  entered: { opacity: 1 },
+  exiting: { opacity: 0.5 },
+  exited: { opacity: 0 },
+};
+
 const getRandomNumber = (max, min = 0) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
@@ -84,6 +98,7 @@ function QuoteMachine() {
   const [randomQuote, setRandomQuote] = useState('');
   const [trigger, setTrigger] = useState(false);
   const [cache, setCache] = useState([]);
+  const [animate, setAnimate] = useState(true);
 
   useEffect(() => {
     const getQuote = async () => {
@@ -96,8 +111,12 @@ function QuoteMachine() {
         setRandomQuote(newQuote);
         setCache(response.data.quotes);
       } else {
-        const newQuote = cache[getRandomNumber(cache.length)];
-        setRandomQuote(newQuote);
+        setAnimate(false);
+        setTimeout(async () => {
+          const newQuote = cache[getRandomNumber(cache.length)];
+          setRandomQuote(newQuote);
+          setAnimate(true);
+        }, 1000);
       }
     };
     getQuote();
@@ -114,14 +133,23 @@ function QuoteMachine() {
 
   const { quote, author } = randomQuote;
   return (
-    <Transition in={theme} timeout={1000}>
+    <Transition timeout={1000}>
       <ThemeProvider theme={theme}>
         <Wrapper>
           <QuoteBox id="quote-box">
-            <blockquote>
-              <QuoteText id="text">{quote}</QuoteText>
-              <QuoteAuthor id="author">- {author}</QuoteAuthor>
-            </blockquote>
+            <Transition in={animate} timeout={duration}>
+              {(state) => (
+                <blockquote
+                  style={{
+                    ...defaultStyle,
+                    ...transitionStyles[state],
+                  }}
+                >
+                  <QuoteText id="text">{quote}</QuoteText>
+                  <QuoteAuthor id="author">- {author}</QuoteAuthor>
+                </blockquote>
+              )}
+            </Transition>
             <ButtonBlock>
               <a href="twitter.com/intent/tweet" id="tweet-quote">
                 <Icon as="i" className="fab fa-twitter-square"></Icon>
