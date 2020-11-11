@@ -12,6 +12,32 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.main};
 `;
 
+const QuoteBox = styled.div`
+  background: #fff;
+  padding: 2em;
+  width: 500px;
+  border-radius: 3px;
+`;
+
+const QuoteText = styled.p`
+  position: relative;
+
+  &:before {
+    position: absolute;
+    top: -20px;
+    left: -30px;
+    content: '"';
+    font-size: 5em;
+  }
+`;
+const QuoteAuthor = styled.p`
+  text-align: right;
+`;
+const ButtonBlock = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const Button = styled.button`
   cursor: pointer;
   display: inline-block;
@@ -93,12 +119,12 @@ function QuoteMachine() {
     <Transition in={theme} timeout={1000}>
       <ThemeProvider theme={theme}>
         <Wrapper>
-          <div id="quote-box">
+          <QuoteBox id="quote-box">
             <blockquote>
-              <p id="text">{quote}</p>
-              <p id="author">- {author}</p>
+              <QuoteText id="text">{quote}</QuoteText>
+              <QuoteAuthor id="author">- {author}</QuoteAuthor>
             </blockquote>
-            <div className="buttons">
+            <ButtonBlock>
               <a href="twitter.com/intent/tweet" id="tweet-quote">
                 <Icon className="icon fab fa-twitter-square"></Icon>
               </a>
@@ -109,8 +135,8 @@ function QuoteMachine() {
               >
                 New Quote
               </Button>
-            </div>
-          </div>
+            </ButtonBlock>
+          </QuoteBox>
         </Wrapper>
       </ThemeProvider>
     </Transition>
