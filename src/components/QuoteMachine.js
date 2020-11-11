@@ -20,14 +20,11 @@ const QuoteBox = styled.div`
 `;
 
 const QuoteText = styled.p`
-  position: relative;
-
-  &:before {
-    position: absolute;
-    top: -20px;
-    left: -30px;
-    content: '"';
-    font-size: 5em;
+  font-weigth: 600;
+  font-size: 1.5em;
+  @media (max-width: 640px) {
+    font-size: 1.2em
+  }
   }
 `;
 const QuoteAuthor = styled.p`
@@ -145,7 +142,9 @@ function QuoteMachine() {
                     ...transitionStyles[state],
                   }}
                 >
-                  <QuoteText id="text">{quote}</QuoteText>
+                  <QuoteText id="text">
+                    <i className="fas fa-quote-right"></i> {quote}
+                  </QuoteText>
                   <QuoteAuthor id="author">- {author}</QuoteAuthor>
                 </blockquote>
               )}
@@ -154,11 +153,7 @@ function QuoteMachine() {
               <a href="twitter.com/intent/tweet" id="tweet-quote">
                 <Icon as="i" className="fab fa-twitter-square"></Icon>
               </a>
-              <Button
-                onClick={() => getNewQuote()}
-                id="new-quote"
-                // className="btn btn-primary"
-              >
+              <Button onClick={() => getNewQuote()} id="new-quote">
                 New Quote
               </Button>
             </ButtonBlock>
