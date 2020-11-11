@@ -80,7 +80,6 @@ function QuoteMachine() {
   const [color, setColor] = useState(colors[getRandomNumber(colors.length, 0)]);
   const [theme, setTheme] = useState({
     main: color,
-    color: 'black',
   });
   const [randomQuote, setRandomQuote] = useState('');
   const [trigger, setTrigger] = useState(false);
@@ -109,7 +108,6 @@ function QuoteMachine() {
     setTrigger(true);
     setColor(colors[getRandomNumber(colors.length, 0)]);
     setTheme({
-      ...theme,
       main: color,
     });
   };
